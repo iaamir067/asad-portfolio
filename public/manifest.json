@@ -1,52 +1,40 @@
 {
-  "name": "Asad Bangash - Flutter Developer & Mobile Engineer",
+  "name": "Asad Bangash — Flutter Developer & Mobile Application Engineer",
   "short_name": "Asad Bangash",
-  "description": "Flutter Developer & Mobile Application Engineer. 2+ years shipping production-grade apps.",
+  "description": "Flutter Developer with 2+ years building scalable cross-platform mobile applications for fintech, healthcare, edtech, and e-commerce.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#0f0f0f",
-  "theme_color": "#0f0f0f",
-  "categories": ["productivity", "business"],
-  "screenshots": [
-    {
-      "src": "/images/screenshot-1.png",
-      "sizes": "540x720",
-      "type": "image/png",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "/images/screenshot-2.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    }
-  ],
+  "background_color": "#0a0a0c",
+  "theme_color": "#0a0a0c",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["business", "productivity", "developer"],
   "icons": [
     {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
+      "src": "/icon",
+      "sizes": "32x32",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
+      "src": "/apple-icon",
+      "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Projects",
+      "url": "/#projects",
+      "description": "View shipped Flutter projects"
     },
     {
-      "src": "/icon-maskable-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "name": "Contact",
+      "url": "/#contact",
+      "description": "Send a project inquiry"
     }
   ]
 }

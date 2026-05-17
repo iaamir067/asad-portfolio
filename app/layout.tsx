@@ -1,43 +1,32 @@
 import './globals.css';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import type { Metadata } from 'next';
-import { SITE_CONFIG } from '@/constants/portfolio';
+import { Toaster } from 'sonner';
 import Providers from '@/components/Providers';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { Toaster } from 'sonner';
+import ScrollToTop from '@/components/ScrollToTop';
+import Analytics from '@/components/Analytics';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { buildMetadata } from '@/lib/seo';
+import { buildHomepageStructuredData } from '@/lib/structured-data';
+import { SITE_CONFIG } from '@/constants/site-config';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+  preload: true,
 });
 
-export const metadata: Metadata = {
-  title: SITE_CONFIG.name,
-  description: SITE_CONFIG.description,
-  keywords: SITE_CONFIG.keywords,
-  authors: [{ name: SITE_CONFIG.author }],
-  creator: SITE_CONFIG.author,
-  metadataBase: new URL(SITE_CONFIG.url),
-  openGraph: {
-    type: 'website',
-    url: SITE_CONFIG.url,
-    title: SITE_CONFIG.name,
-    description: SITE_CONFIG.description,
-    siteName: SITE_CONFIG.name,
-    images: [{ url: SITE_CONFIG.image, width: 1200, height: 630, alt: SITE_CONFIG.name }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    site: SITE_CONFIG.twitterHandle,
-    creator: SITE_CONFIG.twitterHandle,
-    title: SITE_CONFIG.name,
-    description: SITE_CONFIG.description,
-    images: [SITE_CONFIG.image],
-  },
-  robots: { index: true, follow: true },
-  alternates: { canonical: SITE_CONFIG.url },
+export const metadata: Metadata = buildMetadata();
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: SITE_CONFIG.themeColor,
+  colorScheme: 'dark',
 };
 
 export default function RootLayout({
@@ -45,16 +34,29 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const structuredData = buildHomepageStructuredData();
+
   return (
-    <html lang="en" suppressHydrationWarning className={inter.variable}>
+    <html lang={SITE_CONFIG.language} suppressHydrationWarning className={inter.variable}>
       <head>
-        <meta name="theme-color" content="#0a0a0c" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://api.emailjs.com" />
       </head>
       <body className="bg-[hsl(240,10%,4%)] text-white antialiased font-sans">
+        <JsonLd id="ld-portfolio" data={structuredData} />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-cyan-500 focus:text-black focus:rounded-lg focus:font-medium"
+        >
+          Skip to main content
+        </a>
         <Providers>
           <Navbar />
           {children}
           <Footer />
+          <ScrollToTop />
+          <Analytics />
           <Toaster
             theme="dark"
             position="bottom-right"

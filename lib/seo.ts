@@ -1,31 +1,65 @@
-import { SITE_CONFIG } from '@/constants/portfolio';
+import type { Metadata } from 'next';
+import { SITE_CONFIG, SITE_KEYWORDS } from '@/constants/site-config';
+import { PERSONAL_INFO } from '@/constants/personal-info';
+import { SEO } from '@/constants/seo';
 
-export const generateMetadata = (
-  title?: string,
-  description?: string,
-  ogImage?: string,
-) => {
-  const siteTitle = title ? `${title} | ${SITE_CONFIG.name}` : SITE_CONFIG.name;
-  const siteDescription = description || SITE_CONFIG.description;
+type BuildMetadataInput = {
+  title?: string;
+  description?: string;
+  path?: string;
+  image?: string;
+  keywords?: readonly string[];
+  noIndex?: boolean;
+};
+
+const absoluteUrl = (path = '/') => {
+  const base = SITE_CONFIG.url.replace(/\/$/, '');
+  const suffix = path.startsWith('/') ? path : `/${path}`;
+  return `${base}${suffix}`;
+};
+
+export const buildMetadata = ({
+  title,
+  description,
+  path = '/',
+  image,
+  keywords,
+  noIndex = false,
+}: BuildMetadataInput = {}): Metadata => {
+  const finalTitle = title
+    ? `${title} | ${PERSONAL_INFO.fullName}`
+    : SEO.defaultTitle;
+  const finalDescription = description || SEO.defaultDescription;
+  const finalImage = image || SITE_CONFIG.ogImage;
+  const finalKeywords = (keywords || SITE_KEYWORDS) as readonly string[];
+  const url = absoluteUrl(path);
 
   return {
-    title: siteTitle,
-    description: siteDescription,
-    keywords: SITE_CONFIG.keywords.join(', '),
-    author: SITE_CONFIG.author,
-    viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
-    themeColor: '#0f0f0f',
+    metadataBase: new URL(SITE_CONFIG.url),
+    title: finalTitle,
+    description: finalDescription,
+    keywords: [...finalKeywords],
+    authors: [{ name: PERSONAL_INFO.fullName, url: SITE_CONFIG.url }],
+    creator: PERSONAL_INFO.fullName,
+    publisher: PERSONAL_INFO.fullName,
+    applicationName: SITE_CONFIG.name,
+    referrer: 'origin-when-cross-origin',
+    formatDetection: { email: false, address: false, telephone: false },
+    category: SITE_CONFIG.category,
+    alternates: { canonical: url },
     openGraph: {
       type: 'website',
-      url: SITE_CONFIG.url,
-      title: siteTitle,
-      description: siteDescription,
+      url,
+      siteName: SITE_CONFIG.name,
+      title: finalTitle,
+      description: finalDescription,
+      locale: SITE_CONFIG.locale,
       images: [
         {
-          url: ogImage || SITE_CONFIG.image,
+          url: finalImage,
           width: 1200,
           height: 630,
-          alt: SITE_CONFIG.name,
+          alt: `${PERSONAL_INFO.fullName} — ${PERSONAL_INFO.combinedTitle}`,
         },
       ],
     },
@@ -33,111 +67,34 @@ export const generateMetadata = (
       card: 'summary_large_image',
       site: SITE_CONFIG.twitterHandle,
       creator: SITE_CONFIG.twitterHandle,
-      title: siteTitle,
-      description: siteDescription,
-      images: [ogImage || SITE_CONFIG.image],
+      title: finalTitle,
+      description: finalDescription,
+      images: [finalImage],
     },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
-    alternates: {
-      canonical: SITE_CONFIG.url,
-    },
-  };
-};
-
-export const generateSchemaMarkup = (type: string, data?: any) => {
-  const baseSchema = {
-    '@context': 'https://schema.org',
-    '@type': type,
-    name: SITE_CONFIG.name,
-    url: SITE_CONFIG.url,
-    author: {
-      '@type': 'Person',
-      name: SITE_CONFIG.author,
-    },
-  };
-
-  switch (type) {
-    case 'Person':
-      return {
-        ...baseSchema,
-        jobTitle: 'Flutter Developer & Mobile Application Engineer',
-        url: SITE_CONFIG.url,
-        sameAs: [
-          'https://github.com/asadbangash',
-          'https://linkedin.com/in/asadbangash',
-          'https://twitter.com/asadbangash',
-        ],
-      };
-
-    case 'BreadcrumbList':
-      return {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: data.map((item: any, index: number) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          name: item.name,
-          item: `${SITE_CONFIG.url}${item.url}`,
-        })),
-      };
-
-    case 'Article':
-      return {
-        ...baseSchema,
-        '@type': 'BlogPosting',
-        headline: data.title,
-        description: data.description,
-        image: data.image,
-        datePublished: data.datePublished,
-        dateModified: data.dateModified,
-        author: {
-          '@type': 'Person',
-          name: SITE_CONFIG.author,
+    robots: noIndex
+      ? { index: false, follow: false }
+      : {
+          index: true,
+          follow: true,
+          nocache: false,
+          googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+          },
         },
-      };
-
-    default:
-      return baseSchema;
-  }
+    manifest: '/manifest.json',
+    appleWebApp: {
+      capable: true,
+      title: SITE_CONFIG.shortName,
+      statusBarStyle: 'black-translucent',
+    },
+    other: {
+      'theme-color': SITE_CONFIG.themeColor,
+    },
+  };
 };
 
-export const generateSitemap = (pages: string[]) => {
-  const baseUrl = SITE_CONFIG.url;
-  const currentDate = new Date().toISOString().split('T')[0];
-
-  const sitemapEntries = pages.map((page) => ({
-    loc: `${baseUrl}${page}`,
-    lastmod: currentDate,
-    changefreq: page === '/' ? 'weekly' : 'monthly',
-    priority: page === '/' ? '1.0' : '0.8',
-  }));
-
-  return sitemapEntries;
-};
-
-export const generateRobotsTxt = () => {
-  return `User-agent: *
-Allow: /
-Disallow: /admin/
-Disallow: /_next/
-Disallow: /.next/
-Disallow: /api/
-
-Sitemap: ${SITE_CONFIG.url}/sitemap.xml
-
-User-agent: GPTBot
-Disallow: /
-
-User-agent: ChatGPT-User
-Disallow: /`;
-};
+export const absoluteSiteUrl = absoluteUrl;
