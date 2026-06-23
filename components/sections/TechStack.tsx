@@ -1,94 +1,65 @@
-'use client';
-
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import SectionHeading from '@/components/ui/SectionHeading';
+import { Reveal } from '@/components/motion/Reveal';
+import Marquee from '@/components/motion/Marquee';
 import { TECH_STACK, TECH_CATEGORIES } from '@/constants/tech-stack';
-import { SectionBackground } from '@/components/ui/SectionBackground';
-import { SectionEyebrow } from '@/components/ui/section-eyebrow';
+import { TOP_SKILLS } from '@/constants/skills';
 
-const TechStack = () => {
-  const [activeCategory, setActiveCategory] = useState<string>('All');
-
-  const filtered =
-    activeCategory === 'All'
-      ? TECH_STACK
-      : TECH_STACK.filter((t) => t.category === activeCategory);
-
-  const allFilters = ['All', ...TECH_CATEGORIES] as const;
+export default function TechStack() {
+  const grouped = TECH_CATEGORIES.map((category) => ({
+    category,
+    items: TECH_STACK.filter((t) => t.category === category),
+  })).filter((g) => g.items.length > 0);
 
   return (
-    <section
-      id="tech-stack"
-      aria-labelledby="tech-stack-heading"
-      className="relative section-padding overflow-hidden"
-    >
-      <SectionBackground variant="dots" glow="blue" glowPosition="left" />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="mb-4"
-        >
-          <SectionEyebrow>Tech Stack</SectionEyebrow>
-        </motion.div>
-
-        <motion.h2
-          id="tech-stack-heading"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-16 text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.1]"
-        >
-          <span className="text-white">My daily</span>{' '}
-          <span className="text-gradient">toolset.</span>
-        </motion.h2>
-
-        <div className="mb-10 flex flex-wrap gap-2">
-          {allFilters.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-lg text-xs font-medium transition-all duration-300 ${
-                activeCategory === cat
-                  ? 'bg-cyan-500/15 border border-cyan-500/40 text-cyan-300'
-                  : 'glass text-zinc-400 hover:text-zinc-200'
-              }`}
-              aria-pressed={activeCategory === cat}
-            >
-              {cat}
-            </button>
+    <section id="tech-stack" className="relative z-10 bg-ink section-pad">
+      {/* full-bleed marquee */}
+      <div className="overflow-hidden border-y border-line py-6">
+        <Marquee speed={70}>
+          {TOP_SKILLS.map((t) => (
+            <span key={t} className="flex items-center">
+              <span className="px-8 font-serif text-3xl text-paper sm:text-5xl">{t}</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-signal" />
+            </span>
           ))}
+        </Marquee>
+      </div>
+
+      <div className="grid-shell">
+        <div className="mt-20">
+          <SectionHeading
+            index="05"
+            label="Stack"
+            title="The full inventory."
+            description="Everything in regular rotation, grouped by where it sits in the build."
+            align="between"
+          />
         </div>
 
-        <motion.ul
-          layout
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"
-        >
-          {filtered.map((tech, i) => (
-            <motion.li
-              key={tech.id}
-              layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: (i % 10) * 0.03 }}
-              whileHover={{ y: -3 }}
-              className="group glass-card rounded-xl px-4 py-3 hover:border-cyan-500/30 transition-all duration-300"
+        <Reveal stagger={0.05} className="mt-16 border-t border-line font-mono">
+          {grouped.map((group, i) => (
+            <div
+              key={group.category}
+              className="grid grid-cols-4 items-baseline gap-4 border-b border-line py-5 md:grid-cols-12"
             >
-              <p className="text-sm font-semibold text-white">{tech.name}</p>
-              <p className="text-[10px] uppercase tracking-wider text-zinc-500 mt-0.5">
-                {tech.category}
-              </p>
-            </motion.li>
+              <div className="col-span-4 flex items-center gap-3 md:col-span-3">
+                <span className="text-xs text-signal">{String(i + 1).padStart(2, '0')}</span>
+                <span className="text-[11px] uppercase tracking-label text-paper">{group.category}</span>
+              </div>
+              <ul className="col-span-4 flex flex-wrap gap-x-5 gap-y-2 md:col-span-9">
+                {group.items.map((item) => (
+                  <li
+                    key={item.id}
+                    className="text-sm text-paper-dim transition-colors hover:text-signal"
+                    data-cursor
+                  >
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </motion.ul>
+        </Reveal>
       </div>
     </section>
   );
-};
-
-export default TechStack;
+}

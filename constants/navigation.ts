@@ -7,20 +7,19 @@ export type NavItem = {
 
 export const NAV_ITEMS: readonly NavItem[] = [
   { id: 'about', label: 'About', href: '#about', ariaLabel: 'Navigate to About section' },
+  { id: 'work', label: 'Work', href: '#work', ariaLabel: 'Navigate to Selected Work section' },
   { id: 'skills', label: 'Skills', href: '#skills', ariaLabel: 'Navigate to Skills section' },
   { id: 'experience', label: 'Experience', href: '#experience', ariaLabel: 'Navigate to Experience section' },
-  { id: 'projects', label: 'Projects', href: '#projects', ariaLabel: 'Navigate to Projects section' },
-  { id: 'tech-stack', label: 'Tech Stack', href: '#tech-stack', ariaLabel: 'Navigate to Tech Stack section' },
-  { id: 'education', label: 'Education', href: '#education', ariaLabel: 'Navigate to Education section' },
+  { id: 'tech-stack', label: 'Stack', href: '#tech-stack', ariaLabel: 'Navigate to Tech Stack section' },
   { id: 'contact', label: 'Contact', href: '#contact', ariaLabel: 'Navigate to Contact section' },
 ] as const;
 
 export const FOOTER_LINKS = {
   navigation: [
     { id: 'about', label: 'About', href: '#about' },
+    { id: 'work', label: 'Work', href: '#work' },
     { id: 'skills', label: 'Skills', href: '#skills' },
     { id: 'experience', label: 'Experience', href: '#experience' },
-    { id: 'projects', label: 'Projects', href: '#projects' },
     { id: 'contact', label: 'Contact', href: '#contact' },
   ],
   resources: [

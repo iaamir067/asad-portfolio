@@ -10,18 +10,30 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
-      borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        serif: ['var(--font-fraunces)', 'Georgia', 'serif'],
+        sans: ['var(--font-space-grotesk)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-jetbrains)', 'ui-monospace', 'monospace'],
       },
       colors: {
+        ink: {
+          DEFAULT: '#0C0C0E',
+          raised: '#141417',
+          deep: '#08080A',
+        },
+        paper: {
+          DEFAULT: '#EDEAE3',
+          dim: '#9D9A92',
+          faint: '#67645D',
+        },
+        line: {
+          DEFAULT: 'rgba(237, 234, 227, 0.10)',
+          strong: 'rgba(237, 234, 227, 0.20)',
+        },
+        signal: {
+          DEFAULT: '#FFB200',
+          dim: '#C78A00',
+        },
+        // shadcn/radix compatibility tokens
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
@@ -55,13 +67,14 @@ const config: Config = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        chart: {
-          '1': 'hsl(var(--chart-1))',
-          '2': 'hsl(var(--chart-2))',
-          '3': 'hsl(var(--chart-3))',
-          '4': 'hsl(var(--chart-4))',
-          '5': 'hsl(var(--chart-5))',
-        },
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      letterSpacing: {
+        label: '0.18em',
       },
       keyframes: {
         'accordion-down': {
@@ -72,10 +85,15 @@ const config: Config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        'caret-blink': {
+          '0%,70%,100%': { opacity: '1' },
+          '20%,50%': { opacity: '0' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'caret-blink': 'caret-blink 1.1s steps(1) infinite',
       },
     },
   },

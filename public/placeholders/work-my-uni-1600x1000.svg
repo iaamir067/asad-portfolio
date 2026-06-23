@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <rect width="1600" height="1000" fill="#0C0C0E"/>
+  <rect x="40" y="40" width="1520" height="920" fill="none" stroke="rgba(237,234,227,0.14)" stroke-width="1.5"/>
+  <g stroke="#FFB200" stroke-width="2" fill="none">
+    <path d="M40 90 L40 40 L90 40"/>
+    <path d="M1510 40 L1560 40 L1560 90"/>
+    <path d="M1560 910 L1560 960 L1510 960"/>
+    <path d="M90 960 L40 960 L40 910"/>
+  </g>
+  <text x="50%" y="46%" text-anchor="middle" fill="#EDEAE3" font-family="monospace" font-size="70" font-weight="600" letter-spacing="2">MY UNI</text>
+  <text x="50%" y="54%" text-anchor="middle" fill="#FFB200" font-family="monospace" font-size="32" letter-spacing="3">1600 × 1000  ·  PLACEHOLDER</text>
+  <text x="50%" y="60%" text-anchor="middle" fill="rgba(237,234,227,0.5)" font-family="monospace" font-size="32" letter-spacing="1">Student chat + feed screens</text>
+</svg>

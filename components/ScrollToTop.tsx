@@ -1,13 +1,15 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { ArrowUp } from 'lucide-react';
 import { useScrollProgress } from '@/hooks/use-scroll-progress';
+import { useSmoothScroll } from '@/components/providers/SmoothScroll';
+import { cn } from '@/lib/utils';
 
-const ScrollToTop = () => {
+export default function ScrollToTop() {
   const [show, setShow] = useState(false);
   const progress = useScrollProgress();
+  const { scrollTo } = useSmoothScroll();
 
   useEffect(() => {
     const onScroll = () => setShow(window.scrollY > 600);
@@ -16,74 +18,41 @@ const ScrollToTop = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleClick = () => {
-    if (typeof window === 'undefined') return;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const r = 18;
+  const circ = 2 * Math.PI * r;
 
   return (
-    <AnimatePresence>
-      {show && (
-        <motion.button
-          type="button"
-          onClick={handleClick}
-          aria-label="Scroll to top"
-          initial={{ opacity: 0, scale: 0.8, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.8, y: 10 }}
-          transition={{ duration: 0.2 }}
-          className="fixed bottom-6 right-6 z-40 group"
-        >
-          <span className="relative flex items-center justify-center w-12 h-12 rounded-full bg-[hsl(240,10%,4%)]/80 backdrop-blur-xl border border-zinc-800 group-hover:border-cyan-500/40 transition-all duration-300 shadow-lg shadow-black/30">
-            <svg
-              className="absolute inset-0 w-full h-full -rotate-90"
-              viewBox="0 0 48 48"
-              aria-hidden
-            >
-              <circle
-                cx="24"
-                cy="24"
-                r="21"
-                stroke="currentColor"
-                className="text-zinc-800/60"
-                strokeWidth="2"
-                fill="none"
-              />
-              <circle
-                cx="24"
-                cy="24"
-                r="21"
-                stroke="url(#scroll-progress-gradient)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                fill="none"
-                strokeDasharray={2 * Math.PI * 21}
-                strokeDashoffset={(1 - progress / 100) * 2 * Math.PI * 21}
-                style={{ transition: 'stroke-dashoffset 120ms linear' }}
-              />
-              <defs>
-                <linearGradient
-                  id="scroll-progress-gradient"
-                  x1="0"
-                  y1="0"
-                  x2="48"
-                  y2="48"
-                >
-                  <stop offset="0%" stopColor="#22d3ee" />
-                  <stop offset="100%" stopColor="#3b82f6" />
-                </linearGradient>
-              </defs>
-            </svg>
-            <ArrowUp
-              size={18}
-              className="text-zinc-400 group-hover:text-cyan-400 transition-colors"
-              aria-hidden
-            />
-          </span>
-        </motion.button>
+    <button
+      type="button"
+      onClick={() => scrollTo('#top')}
+      aria-label="Scroll to top"
+      className={cn(
+        'group fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center border border-line-strong bg-ink/80 backdrop-blur-md transition-all duration-300',
+        show
+          ? 'pointer-events-auto translate-y-0 opacity-100'
+          : 'pointer-events-none translate-y-3 opacity-0',
       )}
-    </AnimatePresence>
+    >
+      <svg
+        className="absolute inset-0 h-full w-full -rotate-90"
+        viewBox="0 0 48 48"
+        aria-hidden
+      >
+        <circle cx="24" cy="24" r={r} className="stroke-line-strong" strokeWidth="1.5" fill="none" />
+        <circle
+          cx="24"
+          cy="24"
+          r={r}
+          stroke="#FFB200"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          fill="none"
+          strokeDasharray={circ}
+          strokeDashoffset={(1 - progress / 100) * circ}
+          style={{ transition: 'stroke-dashoffset 120ms linear' }}
+        />
+      </svg>
+      <ArrowUp className="h-4 w-4 text-paper-dim transition-colors group-hover:text-signal" aria-hidden />
+    </button>
   );
-};
-
-export default ScrollToTop;
+}
