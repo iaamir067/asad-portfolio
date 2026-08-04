@@ -16,7 +16,7 @@ export const SOCIAL_LINKS: readonly SocialLink[] = [
   {
     id: 'github',
     name: 'GitHub',
-    url: 'https://github.com/AsadBangash34',
+    url: 'https://github.com/asad115123',
     username: 'AsadBangash34',
     icon: Github,
     label: 'GitHub Portfolio',
@@ -26,7 +26,7 @@ export const SOCIAL_LINKS: readonly SocialLink[] = [
   {
     id: 'linkedin',
     name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/asad-bangash-04461b246',
+    url: 'https://www.linkedin.com/in/asad-bangash-894b30269/',
     username: 'asad-bangash',
     icon: Linkedin,
     label: 'LinkedIn Profile',

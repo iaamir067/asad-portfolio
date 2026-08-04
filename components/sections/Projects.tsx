@@ -41,11 +41,13 @@ export default function Projects() {
       // per-panel image parallax
       const imgs = gsap.utils.toArray<HTMLElement>('[data-work-img]');
       imgs.forEach((img) => {
+        const imageId = img.dataset.imageId;
+        const xRange = imageId === 'liquid-canvas' ? 12 : imageId === 'my-uni' ? 3 : imageId === 'language-learning' ? 0 : 8;
         gsap.fromTo(
           img,
-          { xPercent: -8 },
+          { xPercent: -xRange },
           {
-            xPercent: 8,
+            xPercent: xRange,
             ease: 'none',
             scrollTrigger: {
               trigger: img.closest('[data-work-panel]'),
@@ -102,6 +104,17 @@ export default function Projects() {
 
 function ProjectPanel({ project, index }: { project: Project; index: number }) {
   const img = getProjectImage(project.id);
+  const imageFigureClass = 'relative aspect-[16/10] overflow-hidden border border-line';
+  const imagePositionClass =
+    project.id === 'nurse-hiring'
+      ? 'object-contain object-center bg-[#edf7fb]'
+      : 'object-cover object-center';
+  const titleBlockClass =
+    project.id === 'fintech-app' ? 'mt-4' : 'mt-1';
+  const descriptionClass =
+    project.id === 'fintech-app'
+      ? 'max-w-xl text-pretty text-[0.95rem] leading-relaxed text-paper-dim sm:text-base'
+      : 'max-w-xl text-pretty leading-relaxed text-paper-dim';
 
   return (
     <article
@@ -115,15 +128,15 @@ function ProjectPanel({ project, index }: { project: Project; index: number }) {
         <figure
           data-cursor="view"
           data-cursor-label="View"
-          className="relative overflow-hidden border border-line"
+          className={imageFigureClass}
         >
-          <div data-work-img className="relative -ml-[8%] w-[116%]">
+          <div data-work-img data-image-id={project.id} className="relative h-full w-full">
             <Image
               src={img.src}
               alt={img.alt}
-              width={img.width}
-              height={img.height}
-              className="h-auto w-full"
+              fill
+              sizes="(min-width: 1024px) 52vw, 100vw"
+              className={imagePositionClass}
             />
           </div>
           <figcaption className="absolute left-3 top-3 label-mono text-paper">
@@ -143,10 +156,10 @@ function ProjectPanel({ project, index }: { project: Project; index: number }) {
           <h3 className="font-serif text-3xl font-medium leading-tight text-paper sm:text-4xl lg:text-5xl">
             {project.title}
           </h3>
-          <p className="mt-1 font-mono text-sm text-paper-dim">{project.subtitle}</p>
+          <p className={`${titleBlockClass} font-mono text-sm text-paper-dim`}>{project.subtitle}</p>
         </div>
 
-        <p className="max-w-xl text-pretty leading-relaxed text-paper-dim">
+        <p className={descriptionClass}>
           {project.longDescription}
         </p>
 
@@ -172,10 +185,20 @@ function ProjectPanel({ project, index }: { project: Project; index: number }) {
 
         <div className="flex flex-wrap items-center gap-4 pt-1">
           {project.deployment.map((store) => (
-            <span key={store} className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-paper-faint">
-              {store.includes('Apple') ? <Apple className="h-4 w-4" strokeWidth={1.5} /> : <Play className="h-4 w-4" strokeWidth={1.5} />}
+            <a
+              key={store}
+              href={store.includes('Apple') ? project.links.appStore : project.links.playStore}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-edge inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-paper-faint"
+            >
+              {store.includes('Apple') ? (
+                <Apple className="h-4 w-4" strokeWidth={1.5} />
+              ) : (
+                <Play className="h-4 w-4" strokeWidth={1.5} />
+              )}
               {store}
-            </span>
+            </a>
           ))}
         </div>
       </div>

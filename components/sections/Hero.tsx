@@ -88,7 +88,7 @@ export default function Hero() {
           <span
             data-hero-headline
             aria-hidden
-            className="block text-balance font-serif text-[clamp(3rem,11.5vw,9.5rem)] font-medium leading-[0.9] tracking-[-0.02em] text-paper [text-shadow:0_2px_40px_rgba(0,0,0,0.5)]"
+            className="block text-balance font-serif text-[clamp(3rem,11.5vw,9.5rem)] font-medium leading-[1.06] tracking-[-0.02em] text-paper [text-shadow:0_2px_40px_rgba(0,0,0,0.5)]"
           >
             {PERSONAL_INFO.firstName} {PERSONAL_INFO.lastName}
           </span>

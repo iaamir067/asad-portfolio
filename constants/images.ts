@@ -12,9 +12,9 @@ export type ImageSlot = {
 
 export const IMAGES = {
   profile: {
-    src: '/placeholders/profile-800x1000.svg',
-    width: 800,
-    height: 1000,
+    src: '/images/profileiamge.png',
+    width: 2500,
+    height: 3125,
     alt: 'Asad Bangash, Flutter Developer based in Kohat, Pakistan',
   },
   og: {
@@ -28,31 +28,31 @@ export const IMAGES = {
 /** Project id -> hero image slot. Keys match PROJECTS[].id. */
 export const PROJECT_IMAGES: Record<string, ImageSlot> = {
   'liquid-canvas': {
-    src: '/placeholders/work-liquid-canvas-1600x1000.svg',
+    src: '/images/Premium_portfolio_cover_Liquid_C…_202607220952-2.jpeg',
     width: 1600,
     height: 1000,
     alt: 'Liquid Canvas — smart TV digital art gallery app',
   },
   'my-uni': {
-    src: '/placeholders/work-my-uni-1600x1000.svg',
+    src: '/images/My_Uni_app_portfolio_thumbnail_202607220939.jpeg',
     width: 1600,
     height: 1000,
     alt: 'MY UNI — university student platform with real-time chat',
   },
   'nurse-hiring': {
-    src: '/placeholders/work-nurse-hiring-1600x1000.svg',
-    width: 1600,
-    height: 1000,
+    src: '/images/nurse_hiring.jpeg',
+    width: 2752,
+    height: 1536,
     alt: 'Nurse Hiring — healthcare marketplace with booking and live tracking',
   },
   'fintech-app': {
-    src: '/placeholders/work-fintech-1600x1000.svg',
+    src: '/images/fintect_app.png',
     width: 1600,
     height: 1000,
     alt: 'Fintech mobile top-up and gift card platform',
   },
   'language-learning': {
-    src: '/placeholders/work-language-learning-1600x1000.svg',
+    src: '/images/langua_learning_app.jpg',
     width: 1600,
     height: 1000,
     alt: 'Language Learning app with live tutor video sessions',

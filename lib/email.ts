@@ -41,7 +41,12 @@ export const sendContactEmail = async (
   if (data.honeypot && data.honeypot.length > 0) {
     return { success: true };
   }
-
+ console.log("=== EMAILJS DEBUG ===");
+  console.log("Configured:", isEmailJsConfigured());
+  console.log("Service ID:", ENV.emailjs.serviceId);
+  console.log("Template ID:", ENV.emailjs.templateId);
+  console.log("Public Key:", ENV.emailjs.publicKey);
+  console.log("=====================");
   if (!isEmailJsConfigured()) {
     return {
       success: false,

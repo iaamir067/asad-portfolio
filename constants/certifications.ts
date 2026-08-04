@@ -17,5 +17,5 @@ export const CERTIFICATIONS_PLACEHOLDER = {
   emptyDescription:
     'Active learning continues alongside production work. Earned certifications will be added here with verification links.',
   ctaLabel: 'See my GitHub',
-  ctaHref: 'https://github.com/AsadBangash34',
+  ctaHref: 'https://github.com/asad115123',
 } as const;

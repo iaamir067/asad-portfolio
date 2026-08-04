@@ -21,7 +21,7 @@ ratio). To swap in a real asset: drop the file in `/public`, then change the one
 | `og` | `og-1200x630.svg` | 1200 × 630 | 1.91:1 | Social/OG meta | Social share card — name + role on dark, signal-amber accent |
 | `liquid-canvas` | `work-liquid-canvas-1600x1000.svg` | 1600 × 1000 | 16:10 | Selected Work | Smart-TV / mobile digital art gallery UI, real screens |
 | `my-uni` | `work-my-uni-1600x1000.svg` | 1600 × 1000 | 16:10 | Selected Work | MY UNI student app — chat + university news feed screens |
-| `nurse-hiring` | `work-nurse-hiring-1600x1000.svg` | 1600 × 1000 | 16:10 | Selected Work | Nurse Hiring — booking flow + live Google-Maps tracking screens |
+| `nurse-hiring` | `nurse_hiring.jpeg` | 2752 × 1536 | 16:10 | Selected Work | Nurse Hiring — booking flow + live Google-Maps tracking screens |
 | `fintech-app` | `work-fintech-1600x1000.svg` | 1600 × 1000 | 16:10 | Selected Work | Fintech wallet — balance, top-up, gift card screens |
 | `language-learning` | `work-language-learning-1600x1000.svg` | 1600 × 1000 | 16:10 | Selected Work | Language Learning — live tutor video-call + chat UI |
 

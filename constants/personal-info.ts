@@ -19,7 +19,7 @@ export const PERSONAL_INFO = {
   availabilityShort: 'Available',
   resumeUrl: '/resume/asad-bangash-resume.pdf',
   resumeFileName: 'Asad-Bangash-Flutter-Developer-Resume.pdf',
-  avatarUrl: '/images/profile.jpg',
+  avatarUrl: '/images/profileiamge.png',
   profileImageAlt: 'Asad Bangash, Flutter Developer based in Kohat, Pakistan',
   summary:
     'Flutter Developer with 2+ years of experience building scalable cross-platform mobile applications for fintech, healthcare, edtech, and e-commerce industries. Experienced in shipping production-ready applications to Google Play Store and Apple App Store while integrating real-time systems, payment gateways, Firebase services, and REST APIs. Strong focus on clean architecture, performance optimization, and delivering high-quality user experiences for international clients.',

@@ -32,3 +32,4 @@ export const ENV = {
 
 export const isEmailJsConfigured = (): boolean =>
   Boolean(ENV.emailjs.serviceId && ENV.emailjs.templateId && ENV.emailjs.publicKey);
+console.log("ENV:", ENV);
